@@ -21,8 +21,7 @@ const DiscordSelfUserSchema = Joi.object({
         .required(),
     mfa_enabled: Joi.bool()
         .required(),
-    premium_type: Joi.number()
-        .required(),
+    premium_type: Joi.any(),
     email: Joi.string()
         .required(),
     verified: Joi.bool()
