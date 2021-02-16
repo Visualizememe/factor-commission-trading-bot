@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SshConfigs">
+    <configs>
+      <sshConfig authType="PASSWORD" host="206.189.207.206" id="cffc45db-b0c3-4de5-a583-0b8966ed3316" port="22" nameFormat="DESCRIPTIVE" username="root" />
+      <sshConfig host="209.97.179.238" id="6590f10c-b787-44c6-a290-c77e94db0e8f" keyPath="E:\Services\Discord Bots\RoFilter\keys\private_key.ppk" port="22" nameFormat="DESCRIPTIVE" username="root" />
+    </configs>
+  </component>
+</project>
