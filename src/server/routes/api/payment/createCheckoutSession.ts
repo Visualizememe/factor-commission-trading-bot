@@ -1,33 +1,14 @@
 import express from "express";
 import StripeManager from "../../../../controllers/StripeManager";
-import Joi from "joi";
+import config from "../../../../util/config";
 
 
 const createCheckoutSession = express();
 
-const CreateCheckoutSessionSchema = Joi.object({
-    priceId: Joi.string()
-        .required()
-})
-    .required();
-
-createCheckoutSession.post("/", async (request, response) => {
-    const validatedBody = await CreateCheckoutSessionSchema.validateAsync(request.body)
-        .catch(() => null);
-    
-    if (!validatedBody) {
-        return response
-            .status(400)
-            .json({
-                success: false,
-                message: "Invalid body"
-            });
-    }
-    
+createCheckoutSession.post("/", async (_request, response) => {
     const userData = response.locals.userData;
-    
     const hasActiveSubscription = await StripeManager.getCustomerSubscription(userData.stripeCustomerId);
-    
+
     if (hasActiveSubscription) {
         return response
             .status(200)
@@ -36,14 +17,16 @@ createCheckoutSession.post("/", async (request, response) => {
                 message: "Already has subscription!"
             });
     }
-    
-    const createdCheckoutSession = await StripeManager.createCheckoutSession(userData.stripeCustomerId, validatedBody.priceId);
-    
+
+    const createdCheckoutSession = await StripeManager.createCheckoutSession(userData.stripeCustomerId, config.stripeConfig.subscriptionPriceId);
+
     return response
         .status(200)
         .json({
             success: true,
-            createdCheckoutSession
+            data: {
+                sessionId: createdCheckoutSession.id
+            }
         });
 });
 

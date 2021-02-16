@@ -99,11 +99,7 @@ authApp.get("/verify", async (request, response) => {
     return response
         .status(200)
         .cookie("auth", createdSession)
-        .json({
-            success: true,
-            message: "Success!",
-            createdUser
-        });
+        .redirect(302, "/");
 });
 
 export default authApp;

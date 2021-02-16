@@ -10,10 +10,10 @@ createPortalSession.post("/create-portal-session", async (_request, response) =>
         .catch((e: Error) => {
             console.log("An error occurred while creating portal session!");
             console.log(e);
-            
+
             return null;
         });
-    
+
     if (!createdSession) {
         return response
             .status(500)
@@ -22,7 +22,7 @@ createPortalSession.post("/create-portal-session", async (_request, response) =>
                 message: "Failed to create portal session!"
             });
     }
-    
+
     return response
         .status(200)
         .json({
